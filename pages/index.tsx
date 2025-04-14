@@ -8,6 +8,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import Image from 'next/image';
+import { Package, Award, LifeBuoy, Smartphone } from 'lucide-react';
 
 interface Product {
   id: number;
@@ -87,37 +88,39 @@ export default function Home() {
       {/* Why Choose Us */}
       <section className={styles.whyChooseUs}>
         <h2 className={styles.sectionTitle}>Why Lovense?</h2>
+        <p className={styles.sectionSubtitle}>
+          Discover what sets us apart in delivering unparalleled pleasure.
+        </p>
         <div className={styles.featuresGrid}>
           {[
             {
-              icon: '/icons/discreet.png',
+              icon: <Package size={48} className={styles.featureIcon} />,
               title: 'Discreet Shipping',
               description: 'Your privacy is our priority with plain packaging and confidential delivery.',
             },
             {
-              icon: '/icons/quality.png',
+              icon: <Award size={48} className={styles.featureIcon} />,
               title: 'Premium Quality',
               description: 'Crafted with body-safe materials for safe and luxurious experiences.',
             },
             {
-              icon: '/icons/support.png',
+              icon: <LifeBuoy size={48} className={styles.featureIcon} />,
               title: '24/7 Support',
               description: 'Our team is here to assist you anytime, anywhere.',
             },
             {
-              icon: '/icons/tech.png',
+              icon: <Smartphone size={48} className={styles.featureIcon} />,
               title: 'Smart Technology',
               description: 'App-controlled toys for seamless solo or long-distance play.',
             },
           ].map((feature, index) => (
-            <div key={index} className={styles.featureCard}>
-              <Image
-                src={feature.icon}
-                alt={feature.title}
-                width={60}
-                height={60}
-                className={styles.featureIcon}
-              />
+            <div
+              key={index}
+              className={styles.featureCard}
+              data-aos="fade-up"
+              data-aos-delay={index * 150}
+            >
+              <div className={styles.featureIconWrapper}>{feature.icon}</div>
               <h3 className={styles.featureTitle}>{feature.title}</h3>
               <p className={styles.featureText}>{feature.description}</p>
             </div>
@@ -125,57 +128,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className={styles.testimonials}>
-        <h2 className={styles.sectionTitle}>What Our Customers Love</h2>
-        <div className={styles.swiperContainer}>
-          <Swiper
-            modules={[Pagination, Autoplay, Navigation]}
-            pagination={{ clickable: true }}
-            navigation
-            autoplay={{ delay: 5000 }}
-            loop
-            spaceBetween={30}
-            className={styles.swiper}
-          >
-            {[
-              {
-                quote:
-                  'Absolutely transformative! The quality and discreet packaging exceeded my expectations.',
-                author: 'Ashley, California',
-                rating: 5,
-              },
-              {
-                quote:
-                  'Our long-distance relationship feels closer than ever thanks to Lovense!',
-                author: 'Jake & Emma, UK',
-                rating: 5,
-              },
-              {
-                quote:
-                  'The app control is a game-changer. Fun, easy, and so well-designed.',
-                author: 'Sarah, New York',
-                rating: 4,
-              },
-            ].map((t, index) => (
-              <SwiperSlide key={index}>
-                <blockquote className={styles.testimonialCard}>
-                  <div className={styles.rating}>
-                    {Array.from({ length: t.rating }, (_, i) => (
-                      <span key={i} className={styles.star}>★</span>
-                    ))}
-                  </div>
-                  <p className={styles.testimonialQuote}>“{t.quote}”</p>
-                  <footer className={styles.testimonialAuthor}>- {t.author}</footer>
-                </blockquote>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-        <Link href="/testimonials" className={styles.testimonialButton}>
-          See All Reviews
-        </Link>
-      </section>
 
       {/* Blog/Guide Teaser */}
       <section className={styles.blogSection}>
@@ -186,29 +138,44 @@ export default function Home() {
         <div className={styles.blogGrid}>
           {[
             {
-              image: '/images/blog1.jpg',
+              image: '/lovense-logo.png',
               title: 'Beginner’s Guide to Lovense Toys',
               excerpt: 'New to pleasure toys? Start your journey with confidence.',
+              category: 'Guides',
             },
             {
-              image: '/images/blog2.jpg',
+              image: '/lovense-logo.png',
               title: 'Spicing Up Long-Distance Love',
               excerpt: 'Keep the spark alive no matter the distance.',
+              category: 'Relationships',
             },
             {
-              image: '/images/blog3.jpg',
+              image: '/lovense-logo.png',
               title: 'Self-Care & Pleasure',
               excerpt: 'Why prioritizing yourself feels so good.',
+              category: 'Wellness',
             },
           ].map((post, index) => (
-            <div key={index} className={styles.blogCard}>
-              <Image
-                src={post.image}
-                alt={post.title}
-                width={300}
-                height={200}
-                className={styles.blogImage}
-              />
+            <div
+              key={index}
+              className={styles.blogCard}
+              style={{ marginTop: index % 2 === 1 ? '2rem' : '0' }}
+            >
+              <div className={styles.blogImageWrapper}>
+                <Image
+                  src={post.image}
+                  alt={post.title}
+                  width={300}
+                  height={200}
+                  className={styles.blogImage}
+                />
+                <div className={styles.blogOverlay}>
+                  <Link href="/blog" className={styles.blogOverlayButton}>
+                    Read Now
+                  </Link>
+                </div>
+              </div>
+              <span className={styles.blogCategory}>{post.category}</span>
               <h3 className={styles.blogTitle}>{post.title}</h3>
               <p className={styles.blogExcerpt}>{post.excerpt}</p>
               <Link href="/blog" className={styles.blogButton}>
@@ -219,15 +186,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className={styles.cta}>
-        <h2 className={styles.ctaTitle}>Ready to Elevate Your Pleasure?</h2>
-        <p className={styles.ctaText}>
-          Discover toys that blend elegance, innovation, and intimacy.
-        </p>
-        <Link href="/products" className={styles.ctaButton}>
-          Explore the Collection
-        </Link>
+{/* CTA */}
+<section className={styles.cta} data-aos="fade-up">
+        <div className={styles.ctaCard}>
+          <h2 className={styles.ctaTitle}>Ready to Elevate Your Pleasure?</h2>
+          <p className={styles.ctaText}>
+            Discover toys that blend elegance, innovation, and intimacy for unforgettable moments.
+          </p>
+          <div className={styles.ctaActions}>
+            <Link href="/products" className={styles.ctaButton}>
+              Explore the Collection
+            </Link>
+            <Link href="/about" className={styles.ctaSecondary}>
+              Learn More
+            </Link>
+          </div>
+        </div>
       </section>
     </Layout>
   );

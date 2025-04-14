@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useState, useEffect } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -11,22 +11,26 @@ import {
   Menu,
   X,
 } from 'lucide-react';
-import styles from '../styles/Home.module.css';
+import styles from '../styles/Layout.module.css';
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 export default function Layout({ children }: LayoutProps) {
+  // ✅ useState now inside the component
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+  // Optional: grab cart count from localStorage
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem('cart') || '[]');
+    setCartCount(storedCart.length);
+  }, []);
 
-  const closeSidebar = () => {
-    setIsSidebarOpen(false);
-  };
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+  const closeSidebar = () => setIsSidebarOpen(false);
+
 
   return (
     <>
@@ -63,7 +67,9 @@ export default function Layout({ children }: LayoutProps) {
             <Link href="/cart" className={styles.navLink}>
               <ShoppingCart size={18} />
               Cart
+              {cartCount > 0 && <span className={styles.cartBadge}>{cartCount}</span>}
             </Link>
+
             <Link href="/signin" className={styles.navLink}>
               <LogIn size={18} />
               Sign In
@@ -110,7 +116,9 @@ export default function Layout({ children }: LayoutProps) {
           <Link href="/cart" className={styles.mobileLink} onClick={closeSidebar}>
             <ShoppingCart size={18} />
             Cart
+            {cartCount > 0 && <span className={styles.cartBadge}>{cartCount}</span>}
           </Link>
+
           <Link href="/signin" className={styles.mobileLink} onClick={closeSidebar}>
             <LogIn size={18} />
             Sign In

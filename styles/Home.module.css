@@ -157,8 +157,7 @@
        transform: translateX(8px);
        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
      }
-     
-     
+
      .mobileLink:hover svg {
        transform: scale(1.1);
      }
@@ -264,423 +263,818 @@
        }
      }
      
-  /* Hero Section */
+ /* Hero Section */
 .hero {
-       display: flex;
-       align-items: center;
-       justify-content: space-between;
-       max-width: 1200px;
-       margin: 0 auto;
-       padding: 3rem 1rem;
-       background: linear-gradient(135deg, #f5f7fa 0%, #f0e6ff 100%);
-       border-radius: 1rem;
-       overflow: hidden;
-       position: relative;
-       margin-top: 80px;
-     }
-     
-     .heroContent {
-       max-width: 50%;
-       animation: fadeInLeft 1s ease-in-out;
-     }
-     
-     .heroTitle {
-       font-family: 'Playfair Display', serif;
-       font-size: 3.5rem;
-       font-weight: 700;
-       color: #e60073;
-       margin-bottom: 1.5rem;
-       line-height: 1.2;
-       margin-left: 30px;
-     }
-     
-     .heroSubtitle {
-       font-family: 'Segoe UI', sans-serif;
-       font-size: 1.25rem;
-       color: #444;
-       margin-bottom: 2rem;
-       line-height: 1.6;
-       margin-left: 30px;
-     }
-     
-     .heroButton {
-       display: inline-block;
-       background: #e60073;
-       color: white;
-       padding: 0.75rem 2rem;
-       border-radius: 2rem;
-       font-weight: 600;
-       text-decoration: none;
-       transition: transform 0.3s ease, box-shadow 0.3s ease;
-       margin-left: 30px;
-     }
-     
-     .heroButton:hover {
-       transform: scale(1.05);
-       box-shadow: 0 8px 20px rgba(230, 0, 115, 0.3);
-     }
-     
-     .heroImage {
-       max-width: 45%;
-     }
-     
-     .heroProductImage {
-       border-radius: 1rem;
-       object-fit: cover;
-       transition: transform 0.5s ease;
-     }
-     
-     .heroProductImage:hover {
-       transform: scale(1.03);
-     }
-     
-     /* General Section */
-     .section {
-       padding: 6rem 2rem;
-       max-width: 1200px;
-       margin: 0 auto;
-       text-align: center;
-     }
-     
-     .sectionTitle {
-       font-family: 'Playfair Display', serif;
-       font-size: 2.75rem;
-       font-weight: 700;
-       color: #111;
-       margin-bottom: 1rem;
-     }
-     
-     .sectionSubtitle {
-       font-family: 'Segoe UI', sans-serif;
-       font-size: 1.1rem;
-       color: #666;
-       margin-bottom: 3rem;
-     }
-     
-     /* Products Grid */
-     .productsGrid {
-       display: grid;
-       gap: 2rem;
-       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-     }
-     
-     .card {
-       background: white;
-       border-radius: 1rem;
-       padding: 2rem;
-       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-       transition: transform 0.3s ease, box-shadow 0.3s ease;
-       text-align: center;
-     }
-     
-     .card:hover {
-       transform: translateY(-10px);
-       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-     }
-     
-     .cardImage {
-       width: 100%;
-       height: 160px;
-       object-fit: cover;
-       border-radius: 0.75rem;
-       margin-bottom: 1.5rem;
-     }
-     
-     .cardTitle {
-       font-family: 'Segoe UI', sans-serif;
-       font-size: 1.5rem;
-       font-weight: 600;
-       color: #222;
-       margin-bottom: 0.75rem;
-     }
-     
-     .cardText {
-       font-size: 0.95rem;
-       color: #666;
-       margin-bottom: 1.5rem;
-     }
-     
-     .cardButton {
-       display: inline-block;
-       background: transparent;
-       color: #e60073;
-       font-weight: 600;
-       text-decoration: none;
-       border: 2px solid #e60073;
-       padding: 0.5rem 1.5rem;
-       border-radius: 2rem;
-       transition: all 0.3s ease;
-     }
-     
-     .cardButton:hover {
-       background: #e60073;
-       color: white;
-     }
-     
-     /* Why Choose Us */
-     .whyChooseUs {
-       background: #fafafa;
-       padding: 6rem 2rem;
-       text-align: center;
-     }
-     
-     .featuresGrid {
-       display: grid;
-       gap: 2rem;
-       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-       max-width: 1200px;
-       margin: 0 auto;
-     }
-     
-     .featureCard {
-       background: white;
-       border-radius: 1rem;
-       padding: 2rem;
-       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-       transition: transform 0.3s ease;
-     }
-     
-     .featureCard:hover {
-       transform: translateY(-5px);
-     }
-     
-     .featureIcon {
-       margin-bottom: 1rem;
-     }
-     
-     .featureTitle {
-       font-family: 'Segoe UI', sans-serif;
-       font-size: 1.25rem;
-       font-weight: 600;
-       color: #222;
-       margin-bottom: 0.75rem;
-     }
-     
-     .featureText {
-       font-size: 0.95rem;
-       color: #666;
-     }
-     
-     /* Testimonials */
-     .testimonials {
-       background: linear-gradient(135deg, #f0e6ff 0%, #ffffff 100%);
-       padding: 6rem 2rem;
-       text-align: center;
-     }
-     
-     .swiperContainer {
-       max-width: 800px;
-       margin: 0 auto;
-     }
-     
-     .swiper {
-       padding-bottom: 3rem;
-     }
-     
-     .testimonialCard {
-       background: white;
-       border-radius: 1rem;
-       padding: 2.5rem;
-       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-       text-align: center;
-     }
-     
-     .rating {
-       margin-bottom: 1rem;
-     }
-     
-     .star {
-       color: #facc15;
-       font-size: 1.25rem;
-     }
-     
-     .testimonialQuote {
-       font-family: 'Segoe UI', sans-serif;
-       font-size: 1.2rem;
-       font-style: italic;
-       color: #444;
-       margin-bottom: 1.5rem;
-     }
-     
-     .testimonialAuthor {
-       font-family: 'Segoe UI', sans-serif;
-       font-size: 1rem;
-       font-weight: 600;
-       color: #222;
-     }
-     
-     .testimonialButton {
-       display: inline-block;
-       background: #e60073;
-       color: white;
-       padding: 0.75rem 2rem;
-       border-radius: 2rem;
-       font-weight: 600;
-       text-decoration: none;
-       margin-top: 2rem;
-       transition: transform 0.3s ease;
-     }
-     
-     .testimonialButton:hover {
-       transform: scale(1.05);
-     }
-     
-     /* Blog Section */
-     .blogSection {
-       padding: 6rem 2rem;
-       max-width: 1200px;
-       margin: 0 auto;
-       text-align: center;
-     }
-     
-     .blogGrid {
-       display: grid;
-       gap: 2rem;
-       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-     }
-     
-     .blogCard {
-       background: white;
-       border-radius: 1rem;
-       overflow: hidden;
-       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-       transition: transform 0.3s ease;
-     }
-     
-     .blogCard:hover {
-       transform: translateY(-10px);
-     }
-     
-     .blogImage {
-       width: 100%;
-       height: 200px;
-       object-fit: cover;
-     }
-     
-     .blogTitle {
-       font-family: 'Segoe UI', sans-serif;
-       font-size: 1.25rem;
-       font-weight: 600;
-       color: #222;
-       padding: 1.5rem 1rem 0.5rem;
-     }
-     
-     .blogExcerpt {
-       font-size: 0.95rem;
-       color: #666;
-       padding: 0 1rem 1.5rem;
-     }
-     
-     .blogButton {
-       display: inline-block;
-       color: #e60073;
-       font-weight: 600;
-       text-decoration: none;
-       padding: 0.5rem 1rem;
-       margin-bottom: 1.5rem;
-       transition: color 0.3s ease;
-     }
-     
-     .blogButton:hover {
-       color: #b3005c;
-     }
-     
-     /* CTA Section */
-     .cta {
-       background: url('/images/cta-bg.jpg') no-repeat center/cover;
-       padding: 8rem 2rem;
-       text-align: center;
-       color: white;
-       position: relative;
-       border-radius: 1rem;
-       margin: 4rem auto;
-       max-width: 1200px;
-     }
-     
-     .cta::before {
-       content: '';
-       position: absolute;
-       top: 0;
-       left: 0;
-       width: 100%;
-       height: 100%;
-       background: rgba(0, 0, 0, 0.5);
-       border-radius: 1rem;
-     }
-     
-     .ctaTitle {
-       font-family: 'Playfair Display', serif;
-       font-size: 3rem;
-       font-weight: 700;
-       position: relative;
-       margin-bottom: 1.5rem;
-     }
-     
-     .ctaText {
-       font-family: 'Segoe UI', sans-serif;
-       font-size: 1.25rem;
-       position: relative;
-       margin-bottom: 2rem;
-     }
-     
-     .ctaButton {
-       display: inline-block;
-       background: #e60073;
-       color: white;
-       padding: 1rem 2.5rem;
-       border-radius: 2rem;
-       font-weight: 600;
-       text-decoration: none;
-       position: relative;
-       transition: transform 0.3s ease, box-shadow 0.3s ease;
-     }
-     
-     .ctaButton:hover {
-       transform: scale(1.05);
-       box-shadow: 0 8px 20px rgba(230, 0, 115, 0.4);
-     }
-     
-     /* Animations */
-     @keyframes fadeInLeft {
-       from {
-         opacity: 0;
-         transform: translateX(-20px);
-       }
-       to {
-         opacity: 1;
-         transform: translateX(0);
-       }
-     }
-     
-     @media (max-width: 768px) {
-       .hero {
-         flex-direction: column;
-         text-align: center;
-         padding: 4rem 1rem;
-       }
-     
-       .heroContent {
-         max-width: 100%;
-         margin-bottom: 2rem;
-       }
-     
-       .heroImage {
-         max-width: 80%;
-       }
-     
-       .heroTitle {
-         font-size: 2.5rem;
-       }
-     
-       .sectionTitle {
-         font-size: 2rem;
-       }
-     
-       .cta {
-         padding: 4rem 1rem;
-       }
-     
-       .ctaTitle {
-         font-size: 2rem;
-       }
-     }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #f0e6ff 100%);
+  border-radius: 1rem;
+  overflow: hidden;
+  position: relative;
+  margin-top: 80px;
+}
+
+.heroContent {
+  max-width: 50%;
+  animation: fadeInLeft 1s ease-in-out;
+}
+
+.heroTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #e60073;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+  margin-left: 30px;
+}
+
+.heroSubtitle {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1.25rem;
+  color: #444;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  margin-left: 30px;
+}
+
+.heroButton {
+  display: inline-block;
+  background: #e60073;
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-left: 30px;
+}
+
+.heroButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(230, 0, 115, 0.3);
+}
+
+.heroImage {
+  max-width: 45%;
+}
+
+.heroProductImage {
+  border-radius: 1rem;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.heroProductImage:hover {
+  transform: scale(1.03);
+}
+
+/* General Section */
+.section {
+  padding: 6rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.sectionTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.sectionTitle::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #e60073, #b3005c);
+  margin: 0.75rem auto;
+  border-radius: 2px;
+}
+
+.sectionSubtitle {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 3rem;
+}
+
+/* Products Grid */
+.productsGrid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.card {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.cardImage {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.cardTitle {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 0.75rem;
+}
+
+.cardText {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.cardButton {
+  display: inline-block;
+  background: transparent;
+  color: #e60073;
+  font-weight: 600;
+  text-decoration: none;
+  border: 2px solid #e60073;
+  padding: 0.5rem 1.5rem;
+  border-radius: 2rem;
+  transition: all 0.3s ease;
+}
+
+.cardButton:hover {
+  background: #e60073;
+  color: white;
+}
+
+/* Why Choose Us */
+.whyChooseUs {
+  background: linear-gradient(180deg, #fafafa 0%, #f0e6ff 100%);
+  padding: 8rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.whyChooseUs::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('/patterns/circles.svg') no-repeat center/cover;
+  opacity: 0.05;
+  z-index: 0;
+}
+
+.featuresGrid {
+  display: grid;
+  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.featureCard {
+  background: white;
+  border-radius: 1.2rem;
+  padding: 2.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.featureCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(230, 0, 115, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+
+.featureCard:hover {
+  transform: translateY(-8px) rotate(2deg);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.featureCard:hover::before {
+  opacity: 1;
+}
+
+.featureIconWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #e60073, #b3005c);
+  border-radius: 50%;
+  margin: 0 auto 1.5rem;
+  transition: transform 0.4s ease;
+}
+
+.featureCard:hover .featureIconWrapper {
+  transform: scale(1.15);
+}
+
+.featureIcon {
+  color: white;
+  transition: transform 0.4s ease;
+}
+
+.featureCard:hover .featureIcon {
+  transform: scale(1.1);
+}
+
+.featureTitle {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.featureText {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+/* Testimonials */
+.testimonials {
+  background: linear-gradient(135deg, #f0e6ff 0%, #ffffff 100%);
+  padding: 8rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonials::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(230, 0, 115, 0.05) 0%, transparent 70%);
+  z-index: 0;
+}
+
+.swiperContainer {
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.swiper {
+  padding-bottom: 4rem;
+}
+
+.testimonialCard {
+  background: white;
+  border-radius: 1.2rem;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  transform: perspective(1000px) rotateY(0deg);
+}
+
+.testimonialCard:hover {
+  transform: perspective(1000px) rotateY(5deg) translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.testimonialAvatar {
+  border-radius: 50%;
+  margin: 0 auto 1.5rem;
+  border: 3px solid #e60073;
+  transition: transform 0.4s ease;
+}
+
+.testimonialCard:hover .testimonialAvatar {
+  transform: scale(1.1);
+}
+
+.rating {
+  margin-bottom: 1.5rem;
+}
+
+.star {
+  color: #facc15;
+  font-size: 1.4rem;
+  margin: 0 2px;
+}
+
+.testimonialQuote {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-style: italic;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+}
+
+.testimonialQuote::before {
+  content: '“';
+  font-size: 2rem;
+  color: #e60073;
+  position: absolute;
+  left: -1rem;
+  top: -0.5rem;
+}
+
+.testimonialQuote::after {
+  content: '”';
+  font-size: 2rem;
+  color: #e60073;
+  position: absolute;
+  right: -1rem;
+  bottom: -0.5rem;
+}
+
+.testimonialAuthor {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #e60073;
+  position: relative;
+  z-index: 1;
+}
+
+.testimonialButton {
+  display: inline-block;
+  background: linear-gradient(90deg, #e60073, #b3005c);
+  color: white;
+  padding: 1rem 2.5rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  text-decoration: none;
+  margin-top: 2.5rem;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.testimonialButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(230, 0, 115, 0.4);
+}
+
+/* Blog Section */
+.blogSection {
+  padding: 8rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+
+.blogGrid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  position: relative;
+}
+
+.blogCard {
+  background: white;
+  border-radius: 1.2rem;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+}
+
+.blogCard:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.blogImageWrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.blogImage {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.blogCard:hover .blogImage {
+  transform: scale(1.1);
+}
+
+.blogOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(230, 0, 115, 0.3));
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.4s ease;
+}
+
+.blogCard:hover .blogOverlay {
+  opacity: 1;
+}
+
+.blogOverlayButton {
+  background: white;
+  color: #e60073;
+  padding: 0.75rem 2rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+
+.blogOverlayButton:hover {
+  transform: scale(1.1);
+}
+
+.blogCategory {
+  display: inline-block;
+  background: #e60073;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.4rem 1rem;
+  border-radius: 1rem;
+  margin: 1.5rem 1rem 0.5rem;
+  text-transform: uppercase;
+}
+
+.blogTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111;
+  padding: 1rem 1.5rem 0.75rem;
+  position: relative;
+}
+
+.blogTitle::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: #e60073;
+  margin: 0.5rem 0 0;
+}
+
+.blogExcerpt {
+  font-size: 0.95rem;
+  color: #555;
+  padding: 0 1.5rem 1.5rem;
+  line-height: 1.6;
+}
+
+.blogButton {
+  display: inline-block;
+  color: #e60073;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.5rem 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 2px solid #e60073;
+  border-radius: 2rem;
+  transition: all 0.3s ease;
+}
+
+.blogButton:hover {
+  background: #e60073;
+  color: white;
+}
+
+/* CTA Section */
+.cta {
+  position: relative;
+  padding: 6rem 2rem;
+  text-align: center;
+  max-width: 1200px;
+  margin: 6rem auto;
+  overflow: hidden;
+  background: url('/images/cta-bg.jpg') no-repeat center/cover;
+  border-radius: 1.5rem;
+}
+
+.cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(230, 0, 115, 0.3));
+  z-index: 1;
+  animation: gradientShift 8s ease-in-out infinite;
+}
+
+.ctaCard {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 1.2rem;
+  padding: 2rem 1.5rem;
+  max-width: 700px;
+  margin: 0 auto;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 2;
+  transition: transform 0.4s ease;
+}
+
+.ctaCard:hover {
+  transform: translateY(-10px);
+}
+
+.ctaTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #e60073;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+  position: relative;
+}
+
+.ctaTitle::after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, #e60073, #b3005c);
+  margin: 1rem auto;
+  border-radius: 2px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.ctaText {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1.0rem;
+  color: #333;
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+}
+
+.ctaActions {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.ctaButton {
+  display: inline-block;
+  background: linear-gradient(90deg, #e60073, #b3005c);
+  color: white;
+  padding: 1rem 2.5rem;
+  border-radius: 2.5rem;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.ctaButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.4s ease;
+}
+
+.ctaButton:hover::before {
+  left: 100%;
+}
+
+.ctaButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(230, 0, 115, 0.4);
+}
+
+.ctaSecondary {
+  display: inline-block;
+  color: #e60073;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.75rem 2rem;
+  border: 2px solid #e60073;
+  border-radius: 2.5rem;
+  transition: all 0.4s ease;
+}
+
+.ctaSecondary:hover {
+  background: #e60073;
+  color: white;
+  transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 1024px) {
+  .swiper {
+    padding: 0 1rem;
+  }
+
+  .testimonialCard {
+    margin: 0 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem 0.5rem;
+  }
+
+  .heroContent {
+    max-width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .heroImage {
+    max-width: 80%;
+  }
+
+  .heroTitle {
+    font-size: 2.5rem;
+    margin-left: 0;
+  }
+
+  .heroSubtitle {
+    margin-left: 0;
+  }
+
+  .heroButton {
+    margin-left: 0;
+  }
+
+  .sectionTitle {
+    font-size: 2rem;
+  }
+
+  .featuresGrid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .featureCard {
+    padding: 2rem;
+  }
+
+  .blogGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .blogCard {
+    margin-top: 0 !important;
+  }
+
+  .cta {
+    padding: 4rem 1rem;
+  }
+
+  .ctaTitle {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .featureIconWrapper {
+    width: 60px;
+    height: 60px;
+  }
+
+  .featureIcon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .featureTitle {
+    font-size: 1.2rem;
+  }
+
+  .blogTitle {
+    font-size: 1.3rem;
+  }
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem 0.5rem;
+  }
+
+  .heroContent {
+    max-width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .heroImage {
+    max-width: 100%;
+  }
+
+  .heroTitle {
+    font-size: 1.5rem;
+    margin-left: 0;
+  }
+
+  .heroSubtitle {
+    font-size: 0.9rem;
+    margin-left: 0;
+  }
+
+  .heroButton {
+    margin-left: 0;
+  }
+
+  .sectionTitle {
+    font-size: 2rem;
+  }
+}
