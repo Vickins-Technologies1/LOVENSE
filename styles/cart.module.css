@@ -1,0 +1,400 @@
+/* styles/Cart.module.css */
+.cartSection {
+       padding: 6rem 2rem;
+       max-width: 1200px;
+       margin: 0 auto;
+       text-align: center;
+      
+     }
+     
+     .sectionTitle {
+       margin-top: 100px;
+       font-family: 'Playfair Display', serif;
+       font-size: 3.2rem;
+       font-weight: 700;
+       color: #111;
+       margin-bottom: 1rem;
+       position: relative;
+     }
+     
+     .sectionTitle::after {
+       content: '';
+       display: block;
+       width: 100px;
+       height: 4px;
+       background: linear-gradient(90deg, #e60073, #b3005c);
+       margin: 1rem auto;
+       border-radius: 2px;
+       animation: pulse 2s ease-in-out infinite;
+     }
+     
+     .sectionSubtitle {
+       font-family: 'Segoe UI', sans-serif;
+       font-size: 1.3rem;
+       color: #666;
+       margin-bottom: 3rem;
+       line-height: 1.6;
+     }
+     
+     .emptyCart {
+       padding: 4rem 0;
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+       gap: 1.5rem;
+       animation: fadeIn 0.5s ease-in;
+     }
+     
+     .emptyMessage {
+       font-family: 'Segoe UI', sans-serif;
+       font-size: 1.5rem;
+       color: #666;
+     }
+     
+     .shopButton {
+       background: linear-gradient(90deg, #e60073, #b3005c);
+       color: white;
+       font-family: 'Segoe UI', sans-serif;
+       font-size: 1rem;
+       font-weight: 600;
+       padding: 0.75rem 2rem;
+       border-radius: 2rem;
+       text-decoration: none;
+       transition: transform 0.3s ease, box-shadow 0.3s ease;
+     }
+     
+     .shopButton:hover {
+       transform: scale(1.05);
+       box-shadow: 0 8px 20px rgba(230, 0, 115, 0.3);
+     }
+     
+     .cartContent {
+       display: flex;
+       gap: 2rem;
+       flex-wrap: wrap;
+       justify-content: space-between;
+     }
+     
+     .cartItems {
+       flex: 1;
+       min-width: 300px;
+     }
+     
+     .cartItem {
+       display: flex;
+       align-items: center;
+       background: white;
+       border-radius: 1.2rem;
+       padding: 1.5rem;
+       margin-bottom: 1.5rem;
+       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+       transition: transform 0.3s ease, box-shadow 0.3s ease;
+       animation: slideUp 0.4s ease-out;
+     }
+     
+     .cartItem:hover {
+       transform: translateY(-5px);
+       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+     }
+     
+     .itemImage {
+       flex-shrink: 0;
+       width: 100px;
+       height: 100px;
+       border-radius: 0.75rem;
+       overflow: hidden;
+     }
+     
+     .productImage {
+       width: 100%;
+       height: 100%;
+       object-fit: cover;
+       transition: transform 0.3s ease;
+     }
+     
+     .cartItem:hover .productImage {
+       transform: scale(1.1);
+     }
+     
+     .itemDetails {
+       flex: 1;
+       padding: 0 1.5rem;
+       text-align: left;
+     }
+     
+     .itemName {
+       font-family: 'Segoe UI', sans-serif;
+       font-size: 1.5rem;
+       font-weight: 600;
+       color: #222;
+       margin-bottom: 0.5rem;
+     }
+     
+     .itemPrice {
+       font-family: 'Segoe UI', sans-serif;
+       font-size: 1.2rem;
+       font-weight: 500;
+       color: #e60073;
+       margin-bottom: 0.75rem;
+     }
+     
+     .unitPrice {
+       font-size: 0.9rem;
+       color: #666;
+       margin-left: 0.5rem;
+     }
+     
+     .quantityControl {
+       display: flex;
+       align-items: center;
+       gap: 0.75rem;
+       background: #f9f9f9;
+       border-radius: 1.5rem;
+       padding: 0.25rem 0.5rem;
+       width: fit-content;
+     }
+     
+     .quantityButton {
+       background: transparent;
+       border: none;
+       color: #e60073;
+       padding: 0.5rem;
+       cursor: pointer;
+       transition: background 0.3s ease, transform 0.2s ease;
+     }
+     
+     .quantityButton:hover {
+       background: rgba(230, 0, 115, 0.1);
+       transform: scale(1.1);
+     }
+     
+     .quantity {
+       font-family: 'Segoe UI', sans-serif;
+       font-size: 1rem;
+       font-weight: 500;
+       color: #222;
+       min-width: 20px;
+       text-align: center;
+     }
+     
+     .removeButton {
+       background: transparent;
+       border: none;
+       color: #e60073;
+       padding: 0.5rem;
+       cursor: pointer;
+       transition: color 0.3s ease, transform 0.2s ease;
+     }
+     
+     .removeButton:hover {
+       color: #b3005c;
+       transform: scale(1.2);
+     }
+     
+     .cartSummary {
+       width: 100%;
+       max-width: 400px;
+       background: white;
+       border-radius: 1.2rem;
+       padding: 2rem;
+       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+       align-self: flex-start;
+       animation: slideUp 0.4s ease-out;
+     }
+     
+     .summaryTitle {
+       font-family: 'Segoe UI', sans-serif;
+       font-size: 1.8rem;
+       font-weight: 600;
+       color: #222;
+       margin-bottom: 1.5rem;
+     }
+     
+     .summaryDetails {
+       margin-bottom: 1.5rem;
+     }
+     
+     .summaryRow {
+       display: flex;
+       justify-content: space-between;
+       font-family: 'Segoe UI', sans-serif;
+       font-size: 1rem;
+       color: #666;
+       margin-bottom: 0.75rem;
+     }
+     
+     .freeShipping {
+       color: #e60073;
+       font-weight: 600;
+     }
+     
+     .summaryTotal {
+       display: flex;
+       justify-content: space-between;
+       font-family: 'Segoe UI', sans-serif;
+       font-size: 1.2rem;
+       font-weight: 600;
+       color: #222;
+       padding-top: 1rem;
+       border-top: 1px solid #eee;
+     }
+     
+     .checkoutButton {
+       background: linear-gradient(90deg, #e60073, #b3005c);
+       color: white;
+       font-family: 'Segoe UI', sans-serif;
+       font-size: 1rem;
+       font-weight: 600;
+       padding: 0.75rem 2rem;
+       border-radius: 2rem;
+       border: none;
+       width: 100%;
+       cursor: pointer;
+       position: relative;
+       overflow: hidden;
+       transition: transform 0.3s ease, box-shadow 0.3s ease;
+     }
+     
+     .checkoutButton::before {
+       content: '';
+       position: absolute;
+       top: 0;
+       left: -100%;
+       width: 100%;
+       height: 100%;
+       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+       transition: left 0.4s ease;
+     }
+     
+     .checkoutButton:hover::before {
+       left: 100%;
+     }
+     
+     .checkoutButton:hover {
+       transform: scale(1.05);
+       box-shadow: 0 8px 20px rgba(230, 0, 115, 0.3);
+     }
+     
+     .continueShopping {
+       display: block;
+       text-align: center;
+       font-family: 'Segoe UI', sans-serif;
+       font-size: 0.95rem;
+       color: #e60073;
+       margin-top: 1rem;
+       text-decoration: none;
+       transition: color 0.3s ease;
+     }
+     
+     .continueShopping:hover {
+       color: #b3005c;
+     }
+     
+     /* Animations */
+     @keyframes fadeIn {
+       from {
+         opacity: 0;
+       }
+       to {
+         opacity: 1;
+       }
+     }
+     
+     @keyframes slideUp {
+       from {
+         transform: translateY(20px);
+         opacity: 0;
+       }
+       to {
+         transform: translateY(0);
+         opacity: 1;
+       }
+     }
+     
+     @keyframes pulse {
+       0% {
+         transform: scale(1);
+         opacity: 1;
+       }
+       50% {
+         transform: scale(1.2);
+         opacity: 0.7;
+       }
+       100% {
+         transform: scale(1);
+         opacity: 1;
+       }
+     }
+     
+     /* Responsive Design */
+     @media (max-width: 1024px) {
+       .cartContent {
+         flex-direction: column;
+         align-items: center;
+       }
+     
+       .cartSummary {
+         width: 100%;
+         max-width: none;
+       }
+     }
+     
+     @media (max-width: 768px) {
+       .cartSection {
+         padding: 4rem 1rem;
+       }
+     
+       .sectionTitle {
+         font-size: 2.5rem;
+       }
+     
+       .sectionSubtitle {
+         font-size: 1.1rem;
+       }
+     
+       .cartItem {
+         flex-direction: column;
+         align-items: flex-start;
+         text-align: center;
+       }
+     
+       .itemImage {
+         width: 120px;
+         height: 120px;
+         margin: 0 auto 1rem;
+       }
+     
+       .itemDetails {
+         padding: 0;
+       }
+     
+       .quantityControl {
+         margin: 0 auto;
+       }
+     
+       .removeButton {
+         margin: 1rem auto 0;
+       }
+     }
+     
+     @media (max-width: 480px) {
+       .sectionTitle {
+         font-size: 2rem;
+       }
+     
+       .sectionSubtitle {
+         font-size: 1rem;
+       }
+     
+       .itemName {
+         font-size: 1.3rem;
+       }
+     
+       .itemPrice {
+         font-size: 1.1rem;
+       }
+     
+       .checkoutButton {
+         padding: 0.6rem 1.5rem;
+       }
+     }

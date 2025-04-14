@@ -1,281 +1,439 @@
+/* styles/Layout.module.css */
 .navbar {
-       display: flex;
-       justify-content: space-between;
-       align-items: center;
-       font-family: 'Segoe UI', sans-serif;
-       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
-       border-bottom: 1px solid #f0f0f0;
-       position: fixed;
-       width: 100%;
-       top: 0;
-       background-color: rgba(255, 255, 255, 0.95);
-       z-index: 50;
-     }
-     
-     .navLogo {
-       display: flex;
-       align-items: center;
-       justify-content: center; /* Horizontal centering */
-       height: 100%; /* Ensure it takes up full navbar height */
-       margin-left: 1rem; /* Adjust or remove based on your layout */
-     }
-     
-     
-     .navLinks {
-       display: flex;
-       gap: 2rem;
-       align-items: center;
-       margin-right: 200px;
-     }
-     
-     .navLink {
-       display: flex;
-       align-items: center;
-       gap: 0.5rem;
-       color: #00102c;
-       text-decoration: none;
-       font-weight: 500;
-       font-size: 1rem;
-       position: relative;
-       transition: all 0.3s ease;
-     }
-     
-     .navLink:hover {
-       color: #e60073;
-       transform: translateY(-1px);
-     }
-     
-     .navLink::after {
-       content: '';
-       position: absolute;
-       bottom: -4px;
-       left: 0;
-       width: 0%;
-       height: 2px;
-       background-color: #e60073;
-       transition: width 0.3s ease;
-     }
-     
-     .navLink:hover::after {
-       width: 100%;
-     }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  border-bottom: 1px solid #f0f0f0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+  z-index: 50;
+  padding: 1rem 2rem;
+}
 
-     .cartBadge {
-      background-color: #e60073;
-      color: white;
-      font-size: 0.75rem;
-      font-weight: bold;
-      border-radius: 9999px;
-      padding: 2px 6px;
-      margin-left: 6px;
-      min-width: 20px;
-      text-align: center;
-      line-height: 1;
-      display: inline-block;
-    }
-    
-     
-     .menuToggle {
-       display: none;
-       padding: 0.5rem;
-       border: none;
-       background-color: transparent;
-       color: #333;
-       transition: background-color 0.2s ease, transform 0.2s ease;
-       border-radius: 0.5rem;
-       cursor: pointer;
-       z-index: 50;
-       margin-right: 50px;
-     }
-     
-     .menuToggle:hover {
-       background-color: rgba(230, 0, 115, 0.1);
-       transform: scale(1.05);
-     }
-     
-    /* Mobile Sidebar */
+.navLogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70%;
+  margin-left: 1rem;
+}
+
+.navLinks {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  margin-right: 2rem;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #00102c;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.navLink:hover {
+  color: #e60073;
+  transform: translateY(-1px);
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #e60073;
+  transition: width 0.3s ease;
+}
+
+.navLink:hover::after {
+  width: 100%;
+}
+
+.cartBadge {
+  background-color: #e60073;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  border-radius: 9999px;
+  padding: 2px 6px;
+  margin-left: 6px;
+  min-width: 20px;
+  text-align: center;
+  line-height: 1;
+  display: inline-block;
+}
+
+.menuToggle {
+  display: none;
+  padding: 0.5rem;
+  border: none;
+  background-color: transparent;
+  color: #333;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  z-index: 50;
+  margin-right: 1rem;
+}
+
+.menuToggle:hover {
+  background-color: rgba(230, 0, 115, 0.1);
+  transform: scale(1.05);
+}
+
+/* Mobile Sidebar */
 .mobileSidebar {
-       position: fixed;
-       top: 0;
-       right: 0;
-       width: 180px;
-       height: 100vh;
-       background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(245, 247, 250, 0.95) 100%);
-       backdrop-filter: blur(16px);
-       box-shadow: -8px 0 24px rgba(0, 0, 0, 0.1);
-       transform: translateX(100%);
-       transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
-       z-index: 60;
-       padding: 2.5rem 1.5rem;
-       display: flex;
-       flex-direction: column;
-       gap: 1.5rem;
-       opacity: 0;
-       pointer-events: none;
-     }
-     
-     .mobileSidebar.open {
-       transform: translateX(0);
-       opacity: 1;
-       pointer-events: all;
-     }
-     
-     .sidebarHeader {
-       display: flex;
-       justify-content: space-between;
-       align-items: center;
-       font-family: 'Playfair Display', serif;
-       font-weight: 700;
-       font-size: 1.5rem;
-       color: #e60073;
-       border-bottom: 2px solid rgba(230, 0, 115, 0.1);
-       padding: 0 0.5rem 1rem;
-     }
-     
-     .sidebarHeader button {
-       background: none;
-       border: none;
-       cursor: pointer;
-       padding: 0.75rem;
-       border-radius: 50%;
-       transition: background-color 0.2s ease, transform 0.2s ease;
-     }
-     
-     .sidebarHeader button:hover {
-       background-color: rgba(230, 0, 115, 0.1);
-       transform: scale(1.1);
-     }
-     
-     .sidebarHeader button svg {
-       color: #e60073;
-       width: 24px;
-       height: 24px;
-     }
-     
-     .mobileLink {
-       display: flex;
-       align-items: center;
-       gap: 1rem;
-       font-family: 'Segoe UI', sans-serif;
-       font-weight: 600;
-       font-size: 1.1rem;
-       color: #1f2937;
-       text-decoration: none;
-       border-radius: 0.75rem;
-       transition: all 0.3s ease;
-       background: linear-gradient(90deg, transparent 0%, transparent 100%);
-     }
-     
-     .mobileLink:hover {
-       background: linear-gradient(90deg, rgba(230, 0, 115, 0.05) 0%, rgba(230, 0, 115, 0.1) 100%);
-       color: #e60073;
-       transform: translateX(8px);
-       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-     }
-     
-     
-     .mobileLink:hover svg {
-       transform: scale(1.1);
-     }
-     
-     /* Overlay Backdrop */
-     .sidebarBackdrop {
-       position: fixed;
-       top: 0;
-       left: 0;
-       width: 70vw;
-       height: 100vh;
-       background: rgba(0, 0, 0, 0.4);
-       backdrop-filter: blur(4px);
-       z-index: 55;
-       opacity: 0;
-       pointer-events: none;
-       transition: opacity 0.4s ease;
-     }
-     
-     .sidebarBackdrop.visible {
-       opacity: 1;
-       pointer-events: all;
-     }
-     
-     .footer {
-       font-family: 'Segoe UI', sans-serif;
-       color: #000202;
-       text-align: center;
-       padding: 1rem;
-       font-size: 0.875rem;
-       margin-top: auto;
-       background-color: #f8f8f8;
-     }
-     
-     /* Responsive */
-     @media (max-width: 768px) {
-       .navLinks {
-         display: none;
-       }
-     
-       .menuToggle {
-         display: block;
-       }
-     
-       .navbar {
-         padding: 1rem;
-       }
-     
-       .navLogo img {
-         width: 120px;
-         height: auto;
-       }
-     }
-     
-     @media (max-width: 480px) {
-       .mobileSidebar {
-         width: 100%;
-       }
-     
-       .navbar {
-         padding: 0.5rem;
-       }
-     }
-     
-     .footer {
-       font-family: 'Segoe UI', sans-serif;
-       color: #000202;
-       text-align: center;
-       padding: 1rem;
-       font-size: 0.875rem;
-       margin-top: auto;
-       background-color: #f8f8f8;
-     }
-     
-     /* Responsive */
-     @media (max-width: 768px) {
-       .navLinks {
-         display: none;
-       }
-     
-       .menuToggle {
-         display: block;
-       }
-     
-       .navbar {
-         padding: 1rem;
-       }
-     
-       .navLogo img {
-         width: 80px;
-         height: auto;
-         margin-left: 0;
-       }
-     }
-     
-     @media (max-width: 480px) {
-       .mobileSidebar {
-         width: 70%;
-       }
-     
-       .navbar {
-         padding: 0.5rem;
-       }
-     }
-     
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 280px;
+  height: 100vh;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(245, 247, 250, 0.95) 100%);
+  backdrop-filter: blur(16px);
+  box-shadow: -8px 0 24px rgba(0, 0, 0, 0.1);
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+  z-index: 60;
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mobileSidebar.open {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: all;
+}
+
+.sidebarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #e60073;
+  border-bottom: 2px solid rgba(230, 0, 115, 0.1);
+  padding: 0 0.5rem 1rem;
+}
+
+.sidebarHeader button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.75rem;
+  border-radius: 50%;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.sidebarHeader button:hover {
+  background-color: rgba(230, 0, 115, 0.1);
+  transform: scale(1.1);
+}
+
+.sidebarHeader button svg {
+  color: #e60073;
+  width: 24px;
+  height: 24px;
+}
+
+.mobileLink {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #1f2937;
+  text-decoration: none;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+  background: linear-gradient(90deg, transparent 0%, transparent 100%);
+  padding: 0.5rem 1rem;
+}
+
+.mobileLink:hover {
+  background: linear-gradient(90deg, rgba(230, 0, 115, 0.05) 0%, rgba(230, 0, 115, 0.1) 100%);
+  color: #e60073;
+  transform: translateX(8px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.mobileLink:hover svg {
+  transform: scale(1.1);
+}
+
+/* Overlay Backdrop */
+.sidebarBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 55;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.sidebarBackdrop.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Preloader Styles */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, #fff7fb 0%, #fdb9e2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  opacity: 3;
+  transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+}
+
+.preloaderContent {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.preloaderLogo {
+  width: 140px;
+  height: auto;
+  animation: logoPulse 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 15px rgba(230, 0, 115, 0.5));
+  z-index: 2;
+  margin-bottom: 150px;
+  transition: transform 0.3s ease;
+}
+
+.waveContainer {
+  position: absolute;
+  bottom: -20px;
+  width: 200px;
+  height: 80px;
+  display: flex;
+  gap: 8px;
+  z-index: 1;
+}
+
+.wave {
+  width: 33.33%;
+  background: linear-gradient(180deg, rgba(230, 0, 115, 0.7) 0%, rgba(179, 0, 92, 0.3) 100%);
+  border-radius: 50px;
+  animation: wave 1.6s ease-in-out infinite;
+  transform-origin: bottom;
+}
+
+.wave:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.wave:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.particles {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, #e60073 10%, transparent 70%);
+  border-radius: 50%;
+  animation: sparkle 3s ease-in-out infinite;
+}
+
+.particle:nth-child(1) {
+  top: 20%;
+  left: 30%;
+  animation-delay: 0s;
+}
+
+.particle:nth-child(2) {
+  top: 70%;
+  left: 80%;
+  animation-delay: 0.5s;
+}
+
+.particle:nth-child(3) {
+  top: 30%;
+  left: 10%;
+  animation-delay: 1s;
+}
+
+.particle:nth-child(4) {
+  top: 80%;
+  left: 60%;
+  animation-delay: 1.5s;
+}
+
+/* Footer */
+.footer {
+  font-family: 'Segoe UI', sans-serif;
+  color: #000202;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.875rem;
+  margin-top: auto;
+  background-color: #f8f8f8;
+}
+
+/* Animations */
+@keyframes logoPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.85;
+  }
+}
+
+@keyframes wave {
+  0%, 100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(1.5);
+  }
+}
+
+@keyframes sparkle {
+  0% {
+    transform: scale(0.5) translate(0, 0);
+    opacity: 0;
+  }
+  20% {
+    transform: scale(1) translate(20px, -20px);
+    opacity: 1;
+  }
+  40% {
+    transform: scale(0.8) translate(-15px, 15px);
+    opacity: 0.8;
+  }
+  60% {
+    transform: scale(1.2) translate(10px, -10px);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(0.5) translate(0, 0);
+    opacity: 0;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navLinks {
+    display: none;
+  }
+
+  .menuToggle {
+    display: block;
+  }
+
+  .navbar {
+    padding: 1rem;
+  }
+  .mobileSidebar {
+    width: 70%;
+  }
+  .navLogo img {
+    width: 90px;
+    height: auto;
+  }
+
+  .preloaderLogo {
+    width: 120px !important;
+    height: auto !important;
+  }
+
+  .waveContainer {
+    width: 160px;
+    height: 60px;
+  }
+
+  .particles {
+    width: 240px;
+    height: 240px;
+  }
+
+  .particle {
+    width: 5px;
+    height: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobileSidebar {
+    width: 70%;
+  }
+
+  .navbar {
+    padding: 0.5rem;
+  }
+
+  .navLogo img {
+    width: 100px;
+    height: auto;
+    margin-left: 0;
+  }
+
+  .preloaderLogo {
+    width: 100px !important;
+    height: auto !important;
+  }
+
+  .waveContainer {
+    width: 120px;
+    height: 50px;
+  }
+
+  .wave {
+    border-radius: 40px;
+  }
+
+  .particles {
+    width: 200px;
+    height: 200px;
+  }
+
+  .particle {
+    width: 4px;
+    height: 4px;
+  }
+}

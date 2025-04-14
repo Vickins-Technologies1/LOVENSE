@@ -8,6 +8,8 @@ import { Heart, ShoppingCart, X } from 'lucide-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useCartStore } from '../store/cartStore';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export interface Product {
   id: number;
@@ -24,7 +26,6 @@ interface ProductsPageProps {
 }
 
 export default function Products({ products }: ProductsPageProps) {
-  const [productList] = useState(products);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [filter, setFilter] = useState('all');
   const [wishlist, setWishlist] = useState<number[]>([]);
@@ -32,23 +33,46 @@ export default function Products({ products }: ProductsPageProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const firstFocusableRef = useRef<HTMLButtonElement>(null);
 
+  // Initialize AOS
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: true,
+    });
+    return () => AOS.refresh(); // Clean up on unmount
+  }, []);
+
   // Load wishlist from localStorage on mount
   useEffect(() => {
-    const saved = localStorage.getItem('wishlist');
-    if (saved) {
-      setWishlist(JSON.parse(saved) || []);
+    try {
+      const saved = localStorage.getItem('wishlist');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          setWishlist(parsed);
+        }
+      }
+    } catch (error) {
+      console.error('Failed to parse wishlist:', error);
+      setWishlist([]);
     }
   }, []);
 
   // Persist wishlist
   useEffect(() => {
-    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    try {
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    } catch (error) {
+      console.error('Failed to save wishlist:', error);
+    }
   }, [wishlist]);
 
   // Modal: Close on Escape + trap focus
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') closeModal();
+      if (e.key === 'Escape') {
+        closeModal();
+      }
 
       if (e.key === 'Tab' && selectedProduct && modalRef.current) {
         const focusableElements = modalRef.current.querySelectorAll<HTMLElement>(
@@ -97,7 +121,7 @@ export default function Products({ products }: ProductsPageProps) {
     setWishlist((prev) => {
       const isInWishlist = prev.includes(id);
       const updated = isInWishlist ? prev.filter((item) => item !== id) : [...prev, id];
-      const product = productList.find((p) => p.id === id);
+      const product = products.find((p) => p.id === id);
 
       toast.info(
         isInWishlist
@@ -117,7 +141,7 @@ export default function Products({ products }: ProductsPageProps) {
   const openModal = (product: Product) => setSelectedProduct(product);
   const closeModal = () => setSelectedProduct(null);
 
-  const filteredProducts = productList.filter((product) =>
+  const filteredProducts = products.filter((product) =>
     filter === 'all' ? true : product.category.toLowerCase() === filter.toLowerCase()
   );
 
@@ -299,7 +323,7 @@ export const getStaticProps: GetStaticProps = async () => {
     const res = await fetch(`${baseUrl}/api/products`);
 
     if (!res.ok) {
-      throw new Error('Failed to fetch products');
+      throw new Error(`Failed to fetch products: ${res.statusText}`);
     }
 
     const products: Product[] = await res.json();

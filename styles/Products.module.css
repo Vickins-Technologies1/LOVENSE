@@ -1,509 +1,539 @@
 .productsSection {
-       padding: 6rem 2rem;
-       max-width: 1200px;
-       margin: 0 auto;
-       text-align: center;
-     }
-     
-     .sectionTitle {
-       font-family: 'Playfair Display', serif;
-       font-size: 3.2rem;
-       font-weight: 700;
-       color: #111;
-       margin-bottom: 1rem;
-       position: relative;
-     }
-     
-     .sectionTitle::after {
-       content: '';
-       display: block;
-       width: 100px;
-       height: 4px;
-       background: linear-gradient(90deg, #e60073, #b3005c);
-       margin: 1rem auto;
-       border-radius: 2px;
-       animation: pulse 2s ease-in-out infinite;
-     }
-     
-     .sectionSubtitle {
-       font-family: 'Segoe UI', sans-serif;
-       font-size: 1.3rem;
-       color: #666;
-       margin-bottom: 3rem;
-       line-height: 1.6;
-     }
-     
-     /* Filter Bar */
-     .filterBar {
-       display: flex;
-       justify-content: center;
-       gap: 1rem;
-       margin-bottom: 3rem;
-       flex-wrap: wrap;
-     }
-     
-     .filterButton {
-       background: transparent;
-       border: 2px solid #e60073;
-       color: #e60073;
-       font-family: 'Segoe UI', sans-serif;
-       font-size: 1rem;
-       font-weight: 600;
-       padding: 0.6rem 1.8rem;
-       border-radius: 2rem;
-       cursor: pointer;
-       transition: all 0.3s ease;
-       position: relative;
-       overflow: hidden;
-     }
-     
-     .filterButton::before {
-       content: '';
-       position: absolute;
-       top: 0;
-       left: -100%;
-       width: 100%;
-       height: 100%;
-       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-       transition: left 0.4s ease;
-     }
-     
-     .filterButton:hover::before {
-       left: 100%;
-     }
-     
-     .filterButton:hover {
-       background: #e60073;
-       color: white;
-     }
-     
-     .filterButton.active {
-       background: linear-gradient(90deg, #e60073, #b3005c);
-       color: white;
-       box-shadow: 0 4px 12px rgba(230, 0, 115, 0.3);
-     }
-     
-     /* Product Grid */
-     .productsGrid {
-       display: grid;
-       gap: 2rem;
-       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-     }
-     
-     .productCard {
-       background: white;
-       border-radius: 1.2rem;
-       padding: 1.5rem;
-       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-       transition: transform 0.4s ease, box-shadow 0.4s ease;
-       position: relative;
-       overflow: hidden;
-     }
-     
-     .productCard:hover {
-       transform: translateY(-10px);
-       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
-     }
-     
-     .imageWrapper {
-       position: relative;
-       overflow: hidden;
-       border-radius: 0.75rem;
-     }
-     
-     .productImage {
-       width: 100%;
-       height: 200px;
-       object-fit: cover;
-       transition: transform 0.5s ease;
-     }
-     
-     .productCard:hover .productImage {
-       transform: scale(1.1);
-     }
-     
-     .wishlistButton {
-       position: absolute;
-       top: 1rem;
-       right: 1rem;
-       background: rgba(255, 255, 255, 0.9);
-       border-radius: 50%;
-       padding: 0.5rem;
-       border: none;
-       cursor: pointer;
-       transition: transform 0.3s ease, background 0.3s ease;
-     }
-     
-     .wishlistButton:hover {
-       background: #e60073;
-       transform: scale(1.2);
-     }
-     
-     .wishlistButton:hover svg {
-       color: white;
-     }
-     
-     .productName {
-       font-family: 'Segoe UI', sans-serif;
-       font-size: 1.5rem;
-       font-weight: 600;
-       color: #222;
-       margin: 1rem 0 0.5rem;
-     }
-     
-     .productPrice {
-       font-family: 'Segoe UI', sans-serif;
-       font-size: 1.2rem;
-       font-weight: 500;
-       color: #e60073;
-       margin-bottom: 1rem;
-     }
-     
-     .productActions {
-       display: flex;
-       gap: 1rem;
-       justify-content: center;
-       flex-wrap: wrap;
-     }
-     
-     .viewButton {
-       background: transparent;
-       border: 2px solid #e60073;
-       color: #e60073;
-       font-family: 'Segoe UI', sans-serif;
-       font-size: 0.95rem;
-       font-weight: 600;
-       padding: 0.6rem 1.8rem;
-       border-radius: 2rem;
-       cursor: pointer;
-       transition: all 0.3s ease;
-       position: relative;
-       overflow: hidden;
-     }
-     
-     .viewButton::before {
-       content: '';
-       position: absolute;
-       top: 0;
-       left: -100%;
-       width: 100%;
-       height: 100%;
-       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-       transition: left 0.4s ease;
-     }
-     
-     .viewButton:hover::before {
-       left: 100%;
-     }
-     
-     .viewButton:hover {
-       background: #e60073;
-       color: white;
-     }
-     
-     .cartButton {
-       background: linear-gradient(90deg, #e60073, #b3005c);
-       color: white;
-       font-family: 'Segoe UI', sans-serif;
-       font-size: 0.95rem;
-       font-weight: 600;
-       padding: 0.6rem 1.8rem;
-       border-radius: 2rem;
-       border: none;
-       cursor: pointer;
-       display: flex;
-       align-items: center;
-       transition: transform 0.3s ease, box-shadow 0.3s ease;
-     }
-     
-     .cartButton:hover {
-       transform: scale(1.05);
-       box-shadow: 0 8px 20px rgba(230, 0, 115, 0.3);
-     }
-     
-     /* Modal */
-     .modalOverlay {
-       position: fixed;
-       top: 0;
-       left: 0;
-       width: 100%;
-       height: 100%;
-       background: rgba(0, 0, 0, 0.7);
-       backdrop-filter: blur(8px);
-       display: flex;
-       justify-content: center;
-       align-items: center;
-       z-index: 100;
-       animation: fadeIn 0.3s ease-in-out;
-     }
-     
-     .modalContent {
-       background: rgba(255, 255, 255, 0.95);
-       backdrop-filter: blur(10px);
-       border-radius: 1.5rem;
-       padding: 2.5rem;
-       max-width: 600px;
-       width: 90%;
-       position: relative;
-       box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-       animation: slideUp 0.4s ease-out;
-     }
-     
-     .closeButton {
-       position: absolute;
-       top: 1rem;
-       right: 1rem;
-       background: none;
-       border: none;
-       cursor: pointer;
-       padding: 0.5rem;
-       border-radius: 50%;
-       transition: background 0.3s ease;
-     }
-     
-     .closeButton:hover {
-       background: rgba(230, 0, 115, 0.1);
-     }
-     
-     .modalImageWrapper {
-       border-radius: 1rem;
-       overflow: hidden;
-       margin-bottom: 1.5rem;
-     }
-     
-     .modalImage {
-       width: 100%;
-       height: 300px;
-       object-fit: cover;
-       transition: transform 0.3s ease;
-     }
-     
-     .modalContent:hover .modalImage {
-       transform: scale(1.05);
-     }
-     
-     .modalTitle {
-       font-family: 'Playfair Display', serif;
-       font-size: 2.2rem;
-       font-weight: 700;
-       color: #111;
-       margin-bottom: 1rem;
-     }
-     
-     .modalPrice {
-       font-family: 'Segoe UI', sans-serif;
-       font-size: 1.5rem;
-       font-weight: 600;
-       color: #e60073;
-       margin-bottom: 1rem;
-     }
-     
-     .modalDescription {
-       font-family: 'Segoe UI', sans-serif;
-       font-size: 1rem;
-       color: #555;
-       line-height: 1.6;
-       margin-bottom: 1.5rem;
-     }
-     
-     .modalFeatures {
-       margin-bottom: 2rem;
-     }
-     
-     .featuresTitle {
-       font-family: 'Segoe UI', sans-serif;
-       font-size: 1.2rem;
-       font-weight: 600;
-       color: #222;
-       margin-bottom: 0.75rem;
-     }
-     
-     .featuresList {
-       list-style: disc;
-       padding-left: 1.5rem;
-       font-family: 'Segoe UI', sans-serif;
-       font-size: 0.95rem;
-       color: #666;
-     }
-     
-     .featuresList li {
-       margin-bottom: 0.5rem;
-     }
-     
-     .modalCartButton {
-       background: linear-gradient(90deg, #e60073, #b3005c);
-       color: white;
-       font-family: 'Segoe UI', sans-serif;
-       font-size: 1rem;
-       font-weight: 600;
-       padding: 0.75rem 2rem;
-       border-radius: 2rem;
-       border: none;
-       cursor: pointer;
-       display: flex;
-       align-items: center;
-       justify-content: center;
-       width: 100%;
-       transition: transform 0.3s ease, box-shadow 0.3s ease;
-       position: relative;
-       overflow: hidden;
-     }
-     
-     .modalCartButton::before {
-       content: '';
-       position: absolute;
-       top: 0;
-       left: -100%;
-       width: 100%;
-       height: 100%;
-       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-       transition: left 0.4s ease;
-     }
-     
-     .modalCartButton:hover::before {
-       left: 100%;
-     }
-     
-     .modalCartButton:hover {
-       transform: scale(1.05);
-       box-shadow: 0 8px 20px rgba(230, 0, 115, 0.3);
-     }
-     
-     /* No Products Fallback */
-     .noProducts {
-       font-family: 'Segoe UI', sans-serif;
-       font-size: 1.2rem;
-       color: #666;
-       text-align: center;
-       padding: 2rem;
-     }
-     
-     /* Animations */
-     @keyframes fadeIn {
-       from {
-         opacity: 0;
-       }
-       to {
-         opacity: 1;
-       }
-     }
-     
-     @keyframes slideUp {
-       from {
-         transform: translateY(20px);
-         opacity: 0;
-       }
-       to {
-         transform: translateY(0);
-         opacity: 1;
-       }
-     }
-     
-     @keyframes pulse {
-       0% {
-         transform: scale(1);
-         opacity: 1;
-       }
-       50% {
-         transform: scale(1.2);
-         opacity: 0.7;
-       }
-       100% {
-         transform: scale(1);
-         opacity: 1;
-       }
-     }
-     
-     @media (max-width: 768px) {
-       .productsSection {
-         padding: 4rem 1rem;
-       }
-     
-       .sectionTitle {
-         font-size: 2.5rem;
-       }
-     
-       .sectionSubtitle {
-         font-size: 1.1rem;
-       }
-     
-       .filterBar {
-         gap: 0.75rem;
-       }
-     
-       .filterButton {
-         padding: 0.5rem 1.2rem;
-         font-size: 0.9rem;
-       }
-     
-       .productsGrid {
-         grid-template-columns: 1fr;
-       }
-     
-       .productCard {
-         padding: 1.2rem;
-       }
-     
-       .modalContent {
-         padding: 2rem;
-         width: 95%;
-       }
-     
-       .modalImage {
-         height: 200px;
-       }
-     
-       .modalTitle {
-         font-size: 1.8rem;
-       }
-     
-       .modalPrice {
-         font-size: 1.3rem;
-       }
-     }
-     
-     @media (max-width: 480px) {
-       .sectionTitle {
-         font-size: 2rem;
-       }
-     
-       .sectionSubtitle {
-         font-size: 1rem;
-       }
-     
-       .productName {
-         font-size: 1.3rem;
-       }
-     
-       .productPrice {
-         font-size: 1.1rem;
-       }
-     
-       .productActions {
-         flex-direction: column;
-         gap: 0.75rem;
-       }
-     
-       .viewButton,
-       .cartButton {
-         width: 100%;
-         padding: 0.5rem;
-         font-size: 0.9rem;
-       }
-     
-       .modalTitle {
-         font-size: 1.6rem;
-       }
-     
-       .modalPrice {
-         font-size: 1.2rem;
-       }
-     
-       .modalDescription {
-         font-size: 0.9rem;
-       }
-     
-       .modalCartButton {
-         padding: 0.6rem 1.5rem;
-       }
-     }
+  padding: 6rem 2rem;
+  max-width: 1500px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.sectionTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.sectionTitle::after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, #e60073, #b3005c);
+  margin: 1rem auto;
+  border-radius: 2px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.sectionSubtitle {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1.3rem;
+  color: #666;
+  margin-bottom: 3rem;
+  line-height: 1.6;
+}
+
+/* Filter Bar */
+.filterBar {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.filterButton {
+  background: transparent;
+  border: 2px solid #e60073;
+  color: #e60073;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.4rem 1rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.filterButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.4s ease;
+}
+
+.filterButton:hover::before {
+  left: 100%;
+}
+
+.filterButton:hover {
+  background: #e60073;
+  color: white;
+}
+
+.filterButton.active {
+  background: linear-gradient(90deg, #e60073, #b3005c);
+  color: white;
+  box-shadow: 0 4px 12px rgba(230, 0, 115, 0.3);
+}
+
+/* Product Grid */
+.productsGrid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(4, 1fr); /* Changed to exactly 4 columns */
+}
+
+/* Responsive adjustments */
+@media (max-width: 924px) {
+  .productsGrid {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns for medium screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .productsGrid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
+  }
+}
+
+@media (max-width: 480px) {
+  .productsGrid {
+    grid-template-columns: 1fr; /* 1 column for mobile */
+  }
+}
+
+.productCard {
+  background: white;
+  border-radius: 1.2rem;
+  padding: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.productCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+}
+
+.imageWrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.75rem;
+}
+
+.productImage {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.productCard:hover .productImage {
+  transform: scale(1.1);
+}
+
+.wishlistButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  padding: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.wishlistButton:hover {
+  background: #e60073;
+  transform: scale(1.2);
+}
+
+.wishlistButton:hover svg {
+  color: white;
+}
+
+.productName {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #222;
+  margin: 1rem 0 0.5rem;
+}
+
+.productPrice {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #e60073;
+  margin-bottom: 1rem;
+}
+
+.productActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.viewButton {
+  background: transparent;
+  border: 2px solid #e60073;
+  color: #e60073;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.6rem 1.8rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.viewButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.4s ease;
+}
+
+.viewButton:hover::before {
+  left: 100%;
+}
+
+.viewButton:hover {
+  background: #e60073;
+  color: white;
+}
+
+.cartButton {
+  background: linear-gradient(90deg, #e60073, #b3005c);
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.6rem 1.8rem;
+  border-radius: 2rem;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cartButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(230, 0, 115, 0.3);
+}
+
+/* Modal */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modalContent {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  max-width: 600px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.4s ease-out;
+}
+
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+
+.closeButton:hover {
+  background: rgba(230, 0, 115, 0.1);
+}
+
+.modalImageWrapper {
+  border-radius: 1rem;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.modalImage {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.modalContent:hover .modalImage {
+  transform: scale(1.05);
+}
+
+.modalTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 1rem;
+}
+
+.modalPrice {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #e60073;
+  margin-bottom: 1rem;
+}
+
+.modalDescription {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.modalFeatures {
+  margin-bottom: 2rem;
+}
+
+.featuresTitle {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 0.75rem;
+}
+
+.featuresList {
+  list-style: disc;
+  padding-left: 1.5rem;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.featuresList li {
+  margin-bottom: 0.5rem;
+}
+
+.modalCartButton {
+  background: linear-gradient(90deg, #e60073, #b3005c);
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+  border-radius: 2rem;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.modalCartButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.4s ease;
+}
+
+.modalCartButton:hover::before {
+  left: 100%;
+}
+
+.modalCartButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(230, 0, 115, 0.3);
+}
+
+/* No Products Fallback */
+.noProducts {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1.2rem;
+  color: #666;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .productsSection {
+    padding: 2rem 1rem;
+  }
+
+  .sectionTitle {
+    font-size: 2.5rem;
+  }
+
+  .sectionSubtitle {
+    font-size: 1.1rem;
+  }
+
+  .filterBar {
+    gap: 0.75rem;
+  }
+
+  .filterButton {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .productCard {
+    padding: 1.2rem;
+  }
+
+  .modalContent {
+    padding: 2rem;
+    width: 95%;
+  }
+
+  .modalImage {
+    height: 200px;
+  }
+
+  .modalTitle {
+    font-size: 1.8rem;
+  }
+
+  .modalPrice {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .productsSection {
+    margin-top: 50px;
+    padding: 1rem;
+  }
+
+  .filterBar {
+    gap: 0.3rem;
+  }
+
+  .filterButton {
+    padding: 0.2rem 0.8rem;
+    font-size: 0.7rem;
+  }
+
+  .sectionTitle {
+    font-size: 2rem;
+  }
+
+  .sectionSubtitle {
+    font-size: 1rem;
+  }
+
+  .productName {
+    font-size: 1.3rem;
+  }
+
+  .productPrice {
+    font-size: 1.1rem;
+  }
+
+  .productActions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .viewButton,
+  .cartButton {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+
+  }
+
+  .modalTitle {
+    font-size: 1.6rem;
+  }
+
+  .modalPrice {
+    font-size: 1.2rem;
+  }
+
+  .modalDescription {
+    font-size: 0.9rem;
+  }
+
+  .modalCartButton {
+    padding: 0.6rem 1.5rem;
+  }
+}

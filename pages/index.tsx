@@ -77,7 +77,7 @@ export default function Home() {
               />
               <h3 className={styles.cardTitle}>{product.title}</h3>
               <p className={styles.cardText}>{product.description}</p>
-              <Link href={`/products/${product.id}`} className={styles.cardButton}>
+              <Link href={`/products`} className={styles.cardButton}>
                 Discover More
               </Link>
             </div>
