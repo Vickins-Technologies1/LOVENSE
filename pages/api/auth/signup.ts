@@ -1,8 +1,8 @@
 // pages/api/auth/signup.ts
 import { NextApiRequest, NextApiResponse } from 'next';
 import bcrypt from 'bcrypt';
-import { getDb } from '../../lib/mongodb'; 
 import { z } from 'zod';
+import { getDb } from '../../../lib/mongodb';
 
 const signupSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -16,18 +16,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const { email, password } = signupSchema.parse(req.body);
+
     const db = await getDb();
     const existingUser = await db.collection('users').findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: 'Email already registered' });
     }
+
     const hashedPassword = await bcrypt.hash(password, 10);
-    await db.collection('users').insertOne({
+    const result = await db.collection('users').insertOne({
       email,
       password: hashedPassword,
       createdAt: new Date(),
     });
-    res.status(201).json({ message: 'User created successfully' });
+
+    res.status(201).json({ message: 'User created successfully', userId: result.insertedId });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ message: error.errors[0].message });

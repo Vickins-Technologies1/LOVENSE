@@ -2,7 +2,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { getDb } from '../../lib/mongodb'; // Adjust path if needed
+import { getDb } from '../../../lib/mongodb';
 import { z } from 'zod';
 import { serialize } from 'cookie';
 
