@@ -1,65 +1,42 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import clientPromise from '../../lib/mongodb';
+import { NextApiRequest, NextApiResponse } from 'next';
+import { getDb } from '../../lib/mongodb';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export interface Product {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+  category: string;
+  description?: string;
+  features?: string[];
+}
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ message: 'Method not allowed' });
+  }
+
   try {
-    const client = await clientPromise;
-    const dbName = process.env.MONGODB_DB;
-
-    if (!dbName) {
-      throw new Error('MONGODB_DB environment variable is not defined.');
-    }
-
-    const db = client.db(dbName);
-
-    const demoProducts = [
+    const db = await getDb();
+    const seedData: Product[] = [
       {
-        name: 'PulseWave',
-        description: 'A sleek, app-controlled toy for personalized pleasure.',
-        image: '/lovense-logo.png',
-        price: 89.99,
-        category: 'Vibrators',
-        features: ['App-controlled', 'Body-safe silicone', 'Rechargeable'],
-      },
-      {
-        name: 'IntimateGlow',
-        description: 'Discreet design with powerful, whisper-quiet vibrations.',
-        image: '/lovense-logo.png',
-        price: 59.99,
-        category: 'Vibrators',
-        features: ['Waterproof', 'Multiple intensities', 'Travel-friendly'],
-      },
-      {
-        name: 'SilkTouch',
-        description: 'Luxurious toy for couples, enhancing shared moments.',
-        image: '/lovense-logo.png',
-        price: 129.99,
-        category: 'Couples',
-        features: ['Dual stimulation', 'Remote control', 'Ergonomic design'],
-      },
-      {
-        name: 'BlissRing',
-        description: 'Enhances stamina and pleasure for prolonged enjoyment.',
-        image: '/lovense-logo.png',
-        price: 39.99,
-        category: 'Rings',
-        features: ['Flexible fit', 'Vibration modes', 'Easy to clean'],
+        id: 1,
+        name: 'Sample Product',
+        price: 99.99,
+        image: '/images/lovense-logo.png',
+        category: 'Electronics',
+        description: 'A sample product description',
+        features: ['Feature 1', 'Feature 2'],
       },
     ];
 
-    // Seed new data without clearing existing products
-    const result = await db.collection('products').insertMany(demoProducts);
+    await db.collection<Product>('products').deleteMany({});
+    await db.collection<Product>('products').insertMany(seedData);
 
-    res.status(200).json({
-      message: 'Products added successfully!',
-      insertedCount: result.insertedCount,
-      insertedIds: result.insertedIds,
-    });
+    res.status(200).json({ message: 'Database seeded successfully', count: seedData.length });
   } catch (error) {
-    console.error('Seeding failed:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error('Seeding error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    res.status(500).json({ message: 'Internal server error', error: errorMessage });
   }
 }

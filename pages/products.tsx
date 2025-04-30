@@ -1,4 +1,4 @@
-// pages/products.tsx
+
 import React, { useState, useEffect, useRef } from 'react';
 import { GetStaticProps } from 'next';
 import Layout from '../components/Layout';
@@ -39,7 +39,7 @@ export default function Products({ products }: ProductsPageProps) {
       duration: 800,
       once: true,
     });
-    return () => AOS.refresh(); // Clean up on unmount
+    return () => AOS.refresh();
   }, []);
 
   // Load wishlist from localStorage on mount
@@ -107,10 +107,8 @@ export default function Products({ products }: ProductsPageProps) {
       name: product.name,
       price: product.price,
       image: product.image,
-      quantity: 1,
     });
-
-    toast.success('Product added to cart!', {
+    toast.success(`${product.name} added to cart!`, {
       position: 'top-right',
       autoClose: 2000,
       theme: 'light',
@@ -163,7 +161,7 @@ export default function Products({ products }: ProductsPageProps) {
           >
             All
           </button>
-          {categories.map((category, index) => (
+          {categories.map((category) => (
             <button
               key={category}
               className={`${styles.filterButton} ${
@@ -171,7 +169,7 @@ export default function Products({ products }: ProductsPageProps) {
               }`}
               onClick={() => setFilter(category)}
               data-aos="fade-right"
-              data-aos-delay={index * 100}
+              data-aos-delay={categories.indexOf(category) * 100}
             >
               {category.charAt(0).toUpperCase() + category.slice(1)}
             </button>
@@ -181,12 +179,12 @@ export default function Products({ products }: ProductsPageProps) {
         {/* Product Grid */}
         <div className={styles.productsGrid}>
           {filteredProducts.length ? (
-            filteredProducts.map((product, index) => (
+            filteredProducts.map((product) => (
               <div
                 key={product.id}
                 className={styles.productCard}
                 data-aos="fade-up"
-                data-aos-delay={index * 100}
+                data-aos-delay={filteredProducts.indexOf(product) * 100}
               >
                 <div className={styles.imageWrapper}>
                   <Image
@@ -247,6 +245,8 @@ export default function Products({ products }: ProductsPageProps) {
               className={styles.modalContent}
               onClick={(e) => e.stopPropagation()}
               ref={modalRef}
+              role="dialog"
+              aria-labelledby="modal-title"
             >
               <button
                 className={styles.closeButton}
@@ -267,7 +267,9 @@ export default function Products({ products }: ProductsPageProps) {
                   style={{ objectFit: 'cover' }}
                 />
               </div>
-              <h2 className={styles.modalTitle}>{selectedProduct.name}</h2>
+              <h2 id="modal-title" className={styles.modalTitle}>
+                {selectedProduct.name}
+              </h2>
               <p className={styles.modalPrice}>${selectedProduct.price.toFixed(2)}</p>
               <p className={styles.modalDescription}>
                 {selectedProduct.description ||
@@ -277,14 +279,14 @@ export default function Products({ products }: ProductsPageProps) {
                 <h3 className={styles.featuresTitle}>Features</h3>
                 <ul className={styles.featuresList}>
                   {selectedProduct.features?.length ? (
-                    selectedProduct.features.map((feature, index) => (
-                      <li key={index}>{feature}</li>
+                    selectedProduct.features.map((feature) => (
+                      <li key={feature}>{feature}</li>
                     ))
                   ) : (
                     <>
-                      <li>Body-safe materials</li>
-                      <li>App-controlled functionality</li>
-                      <li>Discreet design</li>
+                      <li key="material">Body-safe materials</li>
+                      <li key="app-control">App-controlled functionality</li>
+                      <li key="design">Discreet design</li>
                     </>
                   )}
                 </ul>
@@ -323,7 +325,7 @@ export const getStaticProps: GetStaticProps = async () => {
     const res = await fetch(`${baseUrl}/api/products`);
 
     if (!res.ok) {
-      throw new Error(`Failed to fetch products: ${res.statusText}`);
+      throw new Error(`Failed to fetch products: ${res.status} ${res.statusText}`);
     }
 
     const products: Product[] = await res.json();
@@ -335,7 +337,8 @@ export const getStaticProps: GetStaticProps = async () => {
       revalidate: 60,
     };
   } catch (error) {
-    console.error('getStaticProps error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('getStaticProps error:', errorMessage);
     return {
       props: {
         products: [],

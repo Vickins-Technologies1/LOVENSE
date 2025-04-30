@@ -1,4 +1,3 @@
-// store/cartStore.ts
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
@@ -11,45 +10,39 @@ interface CartItem {
 }
 
 interface OrderSummary {
+  itemCount: number;
   subtotal: number;
   tax: number;
   shipping: number;
   total: number;
-  itemCount: number;
 }
 
-interface CartState {
+interface CartStore {
   cart: CartItem[];
-  addToCart: (item: CartItem) => void;
+  addToCart: (item: Omit<CartItem, 'quantity'>) => void;
   removeFromCart: (id: number) => void;
   updateQuantity: (id: number, quantity: number) => void;
-  clearCart: () => void;
   getOrderSummary: () => OrderSummary;
-  cartCount: number;
-  cartTotal: number;
+  clearCart: () => void;
 }
 
-export const useCartStore = create<CartState>()(
+export const useCartStore = create<CartStore>()(
   persist(
     (set, get) => ({
       cart: [],
       addToCart: (item) => {
-        if (!item.id || item.quantity <= 0) {
-          console.warn('Invalid cart item:', item);
-          return;
-        }
         set((state) => {
-          const existingItem = state.cart.find((p) => p.id === item.id);
+          const existingItem = state.cart.find((i) => i.id === item.id);
           if (existingItem) {
             return {
-              cart: state.cart.map((p) =>
-                p.id === item.id
-                  ? { ...p, quantity: p.quantity + (item.quantity || 1) }
-                  : p
+              cart: state.cart.map((i) =>
+                i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
               ),
             };
           }
-          return { cart: [...state.cart, { ...item, quantity: item.quantity || 1 }] };
+          return {
+            cart: [...state.cart, { ...item, quantity: 1 }],
+          };
         });
       },
       removeFromCart: (id) => {
@@ -58,44 +51,25 @@ export const useCartStore = create<CartState>()(
         }));
       },
       updateQuantity: (id, quantity) => {
-        set((state) => {
-          if (quantity <= 0) {
-            return {
-              cart: state.cart.filter((item) => item.id !== id),
-            };
-          }
-          return {
-            cart: state.cart.map((item) =>
-              item.id === id ? { ...item, quantity } : item
-            ),
-          };
-        });
-      },
-      clearCart: () => {
-        set({ cart: [] });
+        set((state) => ({
+          cart: state.cart
+            .map((item) =>
+              item.id === id ? { ...item, quantity: Math.max(0, quantity) } : item
+            )
+            .filter((item) => item.quantity > 0),
+        }));
       },
       getOrderSummary: () => {
         const cart = get().cart;
-        const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
         const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-        const taxRate = 0.08; // 8% tax
-        const tax = subtotal * taxRate;
-        const shipping = subtotal > 50 ? 0 : 5.99; // Free shipping over $50
+        const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        const tax = subtotal * 0.08; // 8% tax
+        const shipping = subtotal > 100 ? 0 : 10; // Free shipping over $100
         const total = subtotal + tax + shipping;
-
-        return {
-          subtotal: Number(subtotal.toFixed(2)),
-          tax: Number(tax.toFixed(2)),
-          shipping: Number(shipping.toFixed(2)),
-          total: Number(total.toFixed(2)),
-          itemCount,
-        };
+        return { itemCount, subtotal, tax, shipping, total };
       },
-      get cartCount() {
-        return get().cart.reduce((sum, item) => sum + item.quantity, 0);
-      },
-      get cartTotal() {
-        return get().cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      clearCart: () => {
+        set({ cart: [] });
       },
     }),
     {
