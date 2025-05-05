@@ -1,4 +1,3 @@
-// components/Layout.tsx
 import React, { ReactNode, useState, useEffect } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
@@ -24,7 +23,7 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const cartCount = useCartStore((state) => state.cartCount || 0);
+  const cartCount = useCartStore((state) => state.cart.reduce((sum, item) => sum + item.quantity, 0) || 0);
   const { isAuthenticated, logout } = useAuthStore();
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
@@ -149,7 +148,7 @@ export default function Layout({ children }: LayoutProps) {
               <X size={22} />
             </button>
           </div>
-          <Link href="/" className={styles.mobileLink} onClick={closeSidebar}>
+          |<Link href="/" className={styles.mobileLink} onClick={closeSidebar}>
             <Home size={18} className="mr-2" />
             Home
           </Link>
