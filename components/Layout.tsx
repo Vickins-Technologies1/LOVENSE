@@ -148,7 +148,7 @@ export default function Layout({ children }: LayoutProps) {
               <X size={22} />
             </button>
           </div>
-          |<Link href="/" className={styles.mobileLink} onClick={closeSidebar}>
+          <Link href="/" className={styles.mobileLink} onClick={closeSidebar}>
             <Home size={18} className="mr-2" />
             Home
           </Link>
