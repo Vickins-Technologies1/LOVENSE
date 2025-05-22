@@ -1,33 +1,37 @@
-// lib/mongodb.ts
-import { MongoClient, MongoClientOptions } from 'mongodb';
+import { MongoClient, MongoClientOptions, Db } from 'mongodb';
 
+// Augment global namespace for TypeScript
 declare global {
+  // eslint-disable-next-line no-var
   var _mongoClientPromise: Promise<MongoClient> | undefined;
 }
 
-const uri: string | undefined = process.env.MONGODB_URI;
-const dbName: string | undefined = process.env.MONGODB_DB;
+// Environment variables with validation
+const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_DB = process.env.MONGODB_DB;
 
+if (!MONGODB_URI) {
+  throw new Error('MONGODB_URI environment variable is not defined.');
+}
+
+if (!MONGODB_DB) {
+  throw new Error('MONGODB_DB environment variable is not defined.');
+}
+
+// Configurable MongoDB options
 const options: MongoClientOptions = {
-  maxPoolSize: 20,
-  connectTimeoutMS: 10000,
-  socketTimeoutMS: 30000,
+  maxPoolSize: parseInt(process.env.MONGODB_MAX_POOL_SIZE || '20', 10),
+  connectTimeoutMS: parseInt(process.env.MONGODB_CONNECT_TIMEOUT || '10000', 10),
+  socketTimeoutMS: parseInt(process.env.MONGODB_SOCKET_TIMEOUT || '30000', 10),
 };
 
 let client: MongoClient;
 let clientPromise: Promise<MongoClient>;
 
-if (!uri) {
-  throw new Error('MONGODB_URI environment variable is not defined.');
-}
-
-if (!dbName) {
-  throw new Error('MONGODB_DB environment variable is not defined.');
-}
-
+// Singleton MongoDB client
 if (process.env.NODE_ENV === 'development') {
   if (!global._mongoClientPromise) {
-    client = new MongoClient(uri, options);
+    client = new MongoClient(MONGODB_URI, options);
     global._mongoClientPromise = client.connect().catch((err) => {
       console.error('MongoDB connection failed:', err);
       throw err;
@@ -35,16 +39,22 @@ if (process.env.NODE_ENV === 'development') {
   }
   clientPromise = global._mongoClientPromise;
 } else {
-  client = new MongoClient(uri, options);
+  client = new MongoClient(MONGODB_URI, options);
   clientPromise = client.connect().catch((err) => {
     console.error('MongoDB connection failed:', err);
     throw err;
   });
 }
 
-export async function getDb() {
-  const client = await clientPromise;
-  return client.db(dbName);
+// Export a typed database getter
+export async function getDb(): Promise<Db> {
+  try {
+    const client = await clientPromise;
+    return client.db(MONGODB_DB);
+  } catch (error) {
+    console.error('Failed to get MongoDB database:', error);
+    throw new Error('Unable to connect to the database');
+  }
 }
 
 export default clientPromise;

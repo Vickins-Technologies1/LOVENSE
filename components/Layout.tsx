@@ -1,7 +1,10 @@
-import React, { ReactNode, useState, useEffect } from 'react';
+// components/Layout.tsx
+import React, { ReactNode, useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import Image from 'next/image';
+import { useSession, signOut } from 'next-auth/react';
+import { toast } from 'react-toastify';
 import {
   Home,
   ShoppingBag,
@@ -13,38 +16,79 @@ import {
   LogOut,
 } from 'lucide-react';
 import styles from '../styles/Layout.module.css';
-import { useCartStore } from '../store/cartStore';
-import { useAuthStore } from '../store/authStore';
+import { useCart } from '../context/CartContext';
 
 interface LayoutProps {
   children: ReactNode;
+  title?: string;
+  description?: string;
 }
 
-export default function Layout({ children }: LayoutProps) {
+export default function Layout({
+  children,
+  title = 'Lovense - Premium Pleasure Products',
+  description = 'Explore premium sex toys designed for solo or shared pleasure.',
+}: LayoutProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const cartCount = useCartStore((state) => state.cart.reduce((sum, item) => sum + item.quantity, 0) || 0);
-  const { isAuthenticated, logout } = useAuthStore();
+  const sidebarRef = useRef<HTMLDivElement>(null);
+  const { cart } = useCart();
+  const { data: session } = useSession();
 
-  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+  const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0) || 0;
+  const isAuthenticated = !!session?.user;
+
+  const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
   const closeSidebar = () => setIsSidebarOpen(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 2000);
-
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (isSidebarOpen) {
+      document.body.style.overflow = 'hidden';
+      sidebarRef.current?.focus();
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isSidebarOpen]);
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Escape' && isSidebarOpen) {
+      closeSidebar();
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await signOut({ callbackUrl: '/signin' });
+      toast.success('Logged out successfully', {
+        position: 'top-right',
+        autoClose: 2000,
+        theme: 'light',
+      });
+      closeSidebar();
+    } catch (error) {
+      toast.error('Failed to log out', {
+        position: 'top-right',
+        autoClose: 2000,
+        theme: 'light',
+      });
+    }
+  };
 
   return (
     <>
       <Head>
-        <title>Lovense - Premium Pleasure Products</title>
-        <meta
-          name="description"
-          content="Explore premium sex toys designed for solo or shared pleasure."
-        />
+        <title>{title}</title>
+        <meta name="description" content={description} />
         <link rel="icon" href="/icon.png" />
       </Head>
 
@@ -53,11 +97,12 @@ export default function Layout({ children }: LayoutProps) {
           <div className={styles.preloaderContent}>
             <Image
               src="/lovense-logo.png"
-              alt="Lovense Logo"
+              alt="Lovense brand logo"
               width={140}
               height={74}
               className={styles.preloaderLogo}
               priority
+              sizes="(max-width: 768px) 120px, 140px"
             />
             <div className={styles.waveContainer}>
               <div className={styles.wave}></div>
@@ -79,10 +124,11 @@ export default function Layout({ children }: LayoutProps) {
           <Link href="/" className={styles.navLogo}>
             <Image
               src="/lovense-logo.png"
-              alt="Lovense Logo"
+              alt="Lovense brand logo"
               width={150}
               height={80}
               priority
+              sizes="(max-width: 768px) 120px, 150px"
             />
           </Link>
 
@@ -102,11 +148,9 @@ export default function Layout({ children }: LayoutProps) {
             </Link>
             {isAuthenticated ? (
               <button
-                onClick={() => {
-                  logout();
-                  closeSidebar();
-                }}
+                onClick={handleLogout}
                 className={styles.navLink}
+                aria-label="Log out of account"
               >
                 <LogOut size={18} className="mr-2" />
                 Logout
@@ -128,7 +172,7 @@ export default function Layout({ children }: LayoutProps) {
           <button
             className={styles.menuToggle}
             onClick={toggleSidebar}
-            aria-label="Toggle Sidebar"
+            aria-label={isSidebarOpen ? 'Close navigation menu' : 'Open navigation menu'}
           >
             {isSidebarOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
@@ -137,14 +181,23 @@ export default function Layout({ children }: LayoutProps) {
         <div
           className={`${styles.sidebarBackdrop} ${isSidebarOpen ? styles.visible : ''}`}
           onClick={closeSidebar}
+          onKeyDown={handleKeyDown}
+          tabIndex={isSidebarOpen ? 0 : -1}
+          aria-hidden={!isSidebarOpen}
         />
 
         <div
+          ref={sidebarRef}
           className={`${styles.mobileSidebar} ${isSidebarOpen ? styles.open : ''}`}
+          tabIndex={isSidebarOpen ? 0 : -1}
+          onKeyDown={handleKeyDown}
         >
           <div className={styles.sidebarHeader}>
             <span>Menu</span>
-            <button onClick={closeSidebar} aria-label="Close Sidebar">
+            <button
+              onClick={closeSidebar}
+              aria-label="Close navigation menu"
+            >
               <X size={22} />
             </button>
           </div>
@@ -163,11 +216,9 @@ export default function Layout({ children }: LayoutProps) {
           </Link>
           {isAuthenticated ? (
             <button
-              onClick={() => {
-                logout();
-                closeSidebar();
-              }}
+              onClick={handleLogout}
               className={styles.mobileLink}
+              aria-label="Log out of account"
             >
               <LogOut size={18} className="mr-2" />
               Logout

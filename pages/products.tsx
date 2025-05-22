@@ -1,13 +1,13 @@
-
-import React, { useState, useEffect, useRef } from 'react';
+// pages/products.tsx
+import { useState, useEffect, useRef } from 'react';
 import { GetStaticProps } from 'next';
 import Layout from '../components/Layout';
 import styles from '../styles/Products.module.css';
 import Image from 'next/image';
 import { Heart, ShoppingCart, X } from 'lucide-react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { useCartStore } from '../store/cartStore';
+import { toast } from 'react-toastify';
+import { useCart } from '../context/CartContext';
+import { useSession } from 'next-auth/react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -29,7 +29,8 @@ export default function Products({ products }: ProductsPageProps) {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [filter, setFilter] = useState('all');
   const [wishlist, setWishlist] = useState<number[]>([]);
-
+  const { addToCart } = useCart();
+  const { data: session } = useSession();
   const modalRef = useRef<HTMLDivElement>(null);
   const firstFocusableRef = useRef<HTMLButtonElement>(null);
 
@@ -39,11 +40,14 @@ export default function Products({ products }: ProductsPageProps) {
       duration: 800,
       once: true,
     });
-    return () => AOS.refresh();
   }, []);
 
-  // Load wishlist from localStorage on mount
+  // Load wishlist from localStorage or server (if authenticated)
   useEffect(() => {
+    if (session?.user) {
+      // TODO: Fetch wishlist from server for authenticated user
+      return;
+    }
     try {
       const saved = localStorage.getItem('wishlist');
       if (saved) {
@@ -56,16 +60,20 @@ export default function Products({ products }: ProductsPageProps) {
       console.error('Failed to parse wishlist:', error);
       setWishlist([]);
     }
-  }, []);
+  }, [session]);
 
   // Persist wishlist
   useEffect(() => {
+    if (session?.user) {
+      // TODO: Save wishlist to server for authenticated user
+      return;
+    }
     try {
       localStorage.setItem('wishlist', JSON.stringify(wishlist));
     } catch (error) {
       console.error('Failed to save wishlist:', error);
     }
-  }, [wishlist]);
+  }, [wishlist, session]);
 
   // Modal: Close on Escape + trap focus
   useEffect(() => {
@@ -102,11 +110,12 @@ export default function Products({ products }: ProductsPageProps) {
   }, [selectedProduct]);
 
   const handleAddToCart = (product: Product) => {
-    useCartStore.getState().addToCart({
+    addToCart({
       id: product.id,
       name: product.name,
       price: product.price,
       image: product.image,
+      quantity: 1,
     });
     toast.success(`${product.name} added to cart!`, {
       position: 'top-right',
@@ -116,6 +125,14 @@ export default function Products({ products }: ProductsPageProps) {
   };
 
   const toggleWishlist = (id: number) => {
+    if (!session?.user) {
+      toast.info('Please sign in to add items to your wishlist', {
+        position: 'top-right',
+        autoClose: 2000,
+        theme: 'light',
+      });
+      return;
+    }
     setWishlist((prev) => {
       const isInWishlist = prev.includes(id);
       const updated = isInWishlist ? prev.filter((item) => item !== id) : [...prev, id];
@@ -126,7 +143,7 @@ export default function Products({ products }: ProductsPageProps) {
           ? `${product?.name} removed from wishlist`
           : `${product?.name} added to wishlist`,
         {
-          position: 'bottom-right',
+          position: 'top-right',
           autoClose: 2000,
           theme: 'light',
         }
@@ -146,7 +163,7 @@ export default function Products({ products }: ProductsPageProps) {
   const categories = Array.from(new Set(products.map((p) => p.category.toLowerCase())));
 
   return (
-    <Layout>
+    <Layout title="Products - Lovense" description="Browse our premium pleasure products.">
       <section className={styles.productsSection}>
         <h1 className={styles.sectionTitle}>Our Pleasure Collection</h1>
         <p className={styles.sectionSubtitle}>
@@ -158,6 +175,7 @@ export default function Products({ products }: ProductsPageProps) {
           <button
             className={`${styles.filterButton} ${filter === 'all' ? styles.active : ''}`}
             onClick={() => setFilter('all')}
+            aria-label="Show all products"
           >
             All
           </button>
@@ -170,6 +188,7 @@ export default function Products({ products }: ProductsPageProps) {
               onClick={() => setFilter(category)}
               data-aos="fade-right"
               data-aos-delay={categories.indexOf(category) * 100}
+              aria-label={`Filter by ${category}`}
             >
               {category.charAt(0).toUpperCase() + category.slice(1)}
             </button>
@@ -189,11 +208,12 @@ export default function Products({ products }: ProductsPageProps) {
                 <div className={styles.imageWrapper}>
                   <Image
                     src={product.image}
-                    alt={product.name}
+                    alt={`Image of ${product.name}`}
                     width={200}
                     height={200}
                     className={styles.productImage}
                     loading="lazy"
+                    sizes="(max-width: 768px) 150px, 200px"
                     style={{ objectFit: 'cover' }}
                   />
                   <button
@@ -240,13 +260,14 @@ export default function Products({ products }: ProductsPageProps) {
 
         {/* Modal */}
         {selectedProduct && (
-          <div className={styles.modalOverlay} onClick={closeModal}>
+          <div className={styles.modalOverlay} onClick={closeModal} role="presentation">
             <div
               className={styles.modalContent}
               onClick={(e) => e.stopPropagation()}
               ref={modalRef}
               role="dialog"
               aria-labelledby="modal-title"
+              aria-modal="true"
             >
               <button
                 className={styles.closeButton}
@@ -259,11 +280,12 @@ export default function Products({ products }: ProductsPageProps) {
               <div className={styles.modalImageWrapper}>
                 <Image
                   src={selectedProduct.image}
-                  alt={selectedProduct.name}
+                  alt={`Image of ${selectedProduct.name}`}
                   width={400}
                   height={400}
                   className={styles.modalImage}
                   priority
+                  sizes="(max-width: 768px) 300px, 400px"
                   style={{ objectFit: 'cover' }}
                 />
               </div>
@@ -306,15 +328,6 @@ export default function Products({ products }: ProductsPageProps) {
           </div>
         )}
       </section>
-
-      <ToastContainer
-        position="bottom-right"
-        autoClose={2000}
-        hideProgressBar
-        closeOnClick
-        pauseOnHover
-        theme="light"
-      />
     </Layout>
   );
 }
@@ -334,7 +347,7 @@ export const getStaticProps: GetStaticProps = async () => {
       props: {
         products,
       },
-      revalidate: 60,
+      revalidate: 60, // Revalidate every 60 seconds
     };
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';

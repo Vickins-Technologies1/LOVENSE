@@ -6,20 +6,46 @@ import Image from 'next/image';
 import { Trash2, Plus, Minus } from 'lucide-react';
 import styles from '../styles/Cart.module.css';
 import { toast } from 'react-toastify';
+import Link from 'next/link';
+
+// Define types for cart items and order summary
+interface CartItem {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+  quantity: number;
+}
+
+interface OrderSummary {
+  itemCount: number;
+  subtotal: number;
+  tax: number;
+  shipping: number;
+  total: number;
+}
 
 export default function Cart() {
   const { cart, removeFromCart, updateQuantity, getOrderSummary } = useCart();
-  const summary = getOrderSummary();
+  const summary: OrderSummary = getOrderSummary();
 
   const handleQuantityChange = (id: number, quantity: number) => {
-    updateQuantity(id, quantity);
+    // Prevent negative quantities
+    if (quantity < 0) return;
+
+    // Update quantity or remove item if quantity is 0
     if (quantity === 0) {
       const item = cart.find((i) => i.id === id);
-      toast.info(`${item?.name} removed from cart`, {
-        position: 'top-right',
-        autoClose: 2000,
-        theme: 'light',
-      });
+      if (item) {
+        removeFromCart(id); // Explicitly remove item
+        toast.info(`${item.name} removed from cart`, {
+          position: 'top-right',
+          autoClose: 2000,
+          theme: 'light',
+        });
+      }
+    } else {
+      updateQuantity(id, quantity);
     }
   };
 
@@ -34,23 +60,24 @@ export default function Cart() {
         {cart.length === 0 ? (
           <div className={styles.emptyCart}>
             <p className={styles.emptyMessage}>Your cart is empty.</p>
-            <a href="/products" className={styles.shopButton}>
+            <Link href="/products" className={styles.shopButton}>
               Shop Now
-            </a>
+            </Link>
           </div>
         ) : (
           <div className={styles.cartContent}>
             <div className={styles.cartItems}>
-              {cart.map((item) => (
+              {cart.map((item: CartItem) => (
                 <div key={item.id} className={styles.cartItem}>
                   <div className={styles.itemImage}>
                     <Image
                       src={item.image}
-                      alt={item.name}
+                      alt={`Image of ${item.name}`}
                       width={100}
                       height={100}
                       className={styles.productImage}
                       loading="lazy"
+                      sizes="(max-width: 768px) 80px, 100px"
                     />
                   </div>
                   <div className={styles.itemDetails}>
@@ -66,6 +93,7 @@ export default function Cart() {
                         className={styles.quantityButton}
                         onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
                         aria-label={`Decrease quantity of ${item.name}`}
+                        disabled={item.quantity <= 1} // Disable at 1 to prevent 0
                       >
                         <Minus size={16} />
                       </button>
@@ -74,6 +102,7 @@ export default function Cart() {
                         className={styles.quantityButton}
                         onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
                         aria-label={`Increase quantity of ${item.name}`}
+                        disabled={item.quantity >= 99} // Example max limit
                       >
                         <Plus size={16} />
                       </button>
@@ -119,18 +148,12 @@ export default function Cart() {
                   <span>${summary.total.toFixed(2)}</span>
                 </p>
               </div>
-              <button
-                className={styles.checkoutButton}
-                onClick={() => toast.info('Checkout is not implemented yet!', {
-                  position: 'top-right',
-                  autoClose: 2000,
-                })}
-              >
+              <Link href="/checkout" className={styles.checkoutButton}>
                 Proceed to Checkout
-              </button>
-              <a href="/products" className={styles.continueShopping}>
+              </Link>
+              <Link href="/products" className={styles.continueShopping}>
                 Continue Shopping
-              </a>
+              </Link>
             </div>
           </div>
         )}
